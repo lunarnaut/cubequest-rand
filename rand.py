@@ -15,6 +15,16 @@ def lcg(x):
     """Linear congruent generator"""
     return (a * x + b) % M
 
+def generate_block(x):
+    words = []
+
+    # Each block is 1024-bit
+    for _ in range(1024//32):
+        x = lcg(x)
+        words.append(x)
+
+    return words, x
+
 def random_key():
     key = ''
 
@@ -62,8 +72,8 @@ if __name__ == "__main__":
     parser.add_argument('--timestamp', type=str, default=None,
                         help='''Timestamp to use instead of current time.
                                 Must be in YYYYMMDDHHMMSS.S format''')
-    parser.add_argument('-i', '--iterations', type=int, default=10,
-                        help='Number of iterations to output')
+    parser.add_argument('-i', '--iterations', type=int, default=3,
+                        help='Number of blocks to output')
     args = parser.parse_args()
 
     print('Team key: %s' % args.team_key)
@@ -85,7 +95,7 @@ if __name__ == "__main__":
 
     x = seed
 
-    print('Iterations:')
+    print('Blocks:')
     for i in range(args.iterations):
-        x = lcg(x)
-        print('%d: %d' % (i, x))
+        block, x = generate_block(x)
+        print('%d: %s' % (i, block))
