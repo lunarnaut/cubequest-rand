@@ -62,6 +62,8 @@ if __name__ == "__main__":
     parser.add_argument('--timestamp', type=str, default=None,
                         help='''Timestamp to use instead of current time.
                                 Must be in YYYYMMDDHHMMSS.S format''')
+    parser.add_argument('-i', '--iterations', type=int, default=10,
+                        help='Number of iterations to output')
     args = parser.parse_args()
 
     print('Team key: %s' % args.team_key)
@@ -84,6 +86,6 @@ if __name__ == "__main__":
     x = seed
 
     print('Iterations:')
-    for i in range(10):
+    for i in range(args.iterations):
         x = lcg(x)
         print('%d: %d' % (i, x))
