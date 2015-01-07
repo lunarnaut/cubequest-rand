@@ -27,6 +27,10 @@ def generate_seed(key, timestamp):
     """
     XOR each 32-bit component together.
     key is 256-bit ascii, timestamp 128-bit ascii
+
+    NOTE: I am not certain that the CommsProc intends the key to be
+    ASCII.  I am also unsure of the byte order I should convert the
+    ASCII with.
     """
     ret = 0
 
