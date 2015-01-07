@@ -55,19 +55,25 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Generate CubeQuest random data')
     parser.add_argument('--team-key', type=str, help='Team key',
                         default=random_key())
+    parser.add_argument('--timestamp', type=str, default=None,
+                        help='''Timestamp to use instead of current time.
+                                Must be in YYYYMMDDHHMMSS.S format''')
     args = parser.parse_args()
 
     print('Team key: %s' % args.team_key)
 
-    now = datetime.datetime.now(datetime.timezone.utc)
-    now = now.strftime('%Y%m%d%H%M%S.%f')
+    if args.timestamp:
+        timestamp = args.timestamp
+    else:
+        timestamp = datetime.datetime.now(datetime.timezone.utc)
+        timestamp = timestamp.strftime('%Y%m%d%H%M%S.%f')
 
-    # Silly hack to reduction precision to 1/10 sec
-    now = now[:-5]
+        # Silly hack to reduction precision to 1/10 sec
+        timestamp = timestamp[:-5]
 
-    print('Timestamp: %s' % now)
+    print('Timestamp: %s' % timestamp)
 
-    seed = generate_seed(args.team_key, now)
+    seed = generate_seed(args.team_key, timestamp)
 
     print('Seed: %d' % seed)
 
