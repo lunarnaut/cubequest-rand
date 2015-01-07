@@ -11,6 +11,10 @@ M = 2**32
 
 MASK32 = 2**32 - 1
 
+def lcg(x):
+    """Linear congruent generator"""
+    return (a * x + b) % M
+
 def random_key():
     key = ''
 
@@ -66,3 +70,10 @@ if __name__ == "__main__":
     seed = generate_seed(args.team_key, now)
 
     print('Seed: %d' % seed)
+
+    x = seed
+
+    print('Iterations:')
+    for i in range(10):
+        x = lcg(x)
+        print('%d: %d' % (i, x))
