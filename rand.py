@@ -68,7 +68,7 @@ if __name__ == "__main__":
         timestamp = datetime.datetime.now(datetime.timezone.utc)
         timestamp = timestamp.strftime('%Y%m%d%H%M%S.%f')
 
-        # Silly hack to reduction precision to 1/10 sec
+        # Silly hack to reduce precision to 1/10 sec
         timestamp = timestamp[:-5]
 
     print('Timestamp: %s' % timestamp)
